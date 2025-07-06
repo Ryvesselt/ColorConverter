@@ -10,7 +10,7 @@ using Wox.Plugin;
 namespace Community.PowerToys.Run.Plugin.ColorConverter
 {
     /// <summary>
-    /// 颜色格式互转插件，支持 #RRGGBB、rgb(r,g,b)、21, 31, 41 三种格式。
+    /// 颜色格式互转插件，支持 #RRGGBB、RRGGBB（大小写均可）、rgb(r,g,b)、21, 31, 41 （中英文逗号，空格分隔）等格式。
     /// </summary>
     public class Main : IPlugin, IContextMenu, IDisposable
     {
@@ -171,16 +171,16 @@ namespace Community.PowerToys.Run.Plugin.ColorConverter
             return false;
         }
 
-        // 解析 21, 31, 41 或中文逗号分隔的格式
+        // 解析 21, 31, 41 或中文逗号、空格分隔的格式
         private static bool TryParseCommaRgb(string input, out int r, out int g, out int b)
         {
             r = g = b = 0;
-            // 支持英文逗号和中文逗号
-            var match = Regex.Match(input, @"^\s*(\d{1,3})\s*[,，]\s*(\d{1,3})\s*[,，]\s*(\d{1,3})\s*$");
-            if (match.Success
-                && int.TryParse(match.Groups[1].Value, out r)
-                && int.TryParse(match.Groups[2].Value, out g)
-                && int.TryParse(match.Groups[3].Value, out b)
+            // 支持英文逗号、中文逗号、空格等任意分隔
+            var parts = Regex.Split(input.Trim(), @"[,\s，]+");
+            if (parts.Length == 3
+                && int.TryParse(parts[0], out r)
+                && int.TryParse(parts[1], out g)
+                && int.TryParse(parts[2], out b)
                 && r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
             {
                 return true;

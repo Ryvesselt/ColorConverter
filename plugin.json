@@ -6,7 +6,7 @@
   "Author": "Ryvesselt",
   "Version": "0.91.0",
   "Language": "csharp",
-  "Website": "https://github.com/Ryvesselt/Community.PowerToys.Run.Plugin.ColorConverter",
+  "Website": "https://github.com/Ryvesselt/ColorConverter",
   "ExecuteFileName": "Community.PowerToys.Run.Plugin.ColorConverter.dll",
   "IcoPathDark": "Images\\colorconverter.dark.png",
   "IcoPathLight": "Images\\colorconverter.light.png",
